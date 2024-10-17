@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+                                    Dhanalakshmi</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Deltateam.pavan" name="keywords">
+        <meta content="Deltateam.pavan" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Nunito:600,700" rel="stylesheet"> 
+        
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">Dhan<span>lakshmi</span></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="index.html" class="nav-item nav-link ">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="services.html" class="nav-item nav-link">Services</a>
+                        <a href="gallery.html" class="nav-item nav-link ">Gallery</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Calculator's</a>
+                            <div class="dropdown-menu">
+                                <a href="feature.html" class="dropdown-item ">Future Value Calculator</a>
+                                <a href="fixed.html" class="dropdown-item active">Fixed Value Calculator</a>
+                                <a href="present.html" class="dropdown-item">Present Value Calculator</a>
+                                <a href="recuring.html" class="dropdown-item">Recuring Deposit Calculator</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        
+        
+        <!-- Page Header Start -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Fixed Value Calculator</h2>
+                    </div>
+                    <div class="col-12">
+                        <a href="index.html">Home</a>
+                        <a href="fixed.html">Fixed Value Calculator</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        
+        
+        <!-- Blog Start -->
+        <div class="calculator">
+            <h1>Fixed Value Calculator</h1>
+            <div class="form-group">
+                <label for="principal-amount">Principal amount (₹)</label>
+                <input type="number" id="principal-amount" value="100000">
+            </div>
+            <div class="form-group">
+                <label for="interest-rate-2">Manual rate (%)</label>
+                <input type="number" id="interest-rate-2" value="10">
+            </div>
+            <div class="form-group">
+                <label for="compounding-option">Interest compounding</label>
+                <select id="compounding-option">
+                    <option value="yearly">Annually</option>
+                    <option value="half-yearly">Half-Yearly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="15days">15 Days</option>
+                    <option value="7days">7 Days</option>
+                    <option value="daily">Daily</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="loan-period-2">Loan period (months)</label>
+                <input type="number" id="loan-period-2" value="12">
+            </div>
+            <button class="btn" onclick="calculateFD()" style="background-color: #0163ea;">Calculate interest</button>
+            <button class="btn clear" onclick="clearFields(2)">Clear</button>
+            <div id="result-2" class="result"></div>
+        </div>
+    
+    <script>
+        
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    
+        function calculateFD() {
+            var principalAmount = parseFloat(document.getElementById('principal-amount').value);
+            var interestRate = parseFloat(document.getElementById('interest-rate-2').value);
+            var compoundingOption = document.getElementById('compounding-option').value;
+            var months = parseFloat(document.getElementById('loan-period-2').value);
+    
+            var periodsPerYear = compoundingOption === 'monthly' ? 12 : (compoundingOption === 'quarterly' ? 4 : (compoundingOption === 'half-yearly' ? 2 : 1));
+            var interestPerPeriod = interestRate / (100 * periodsPerYear);
+            var periods = months / 12 * periodsPerYear;
+    
+            var maturityAmount = principalAmount * Math.pow(1 + interestPerPeriod, periods);
+    
+            document.getElementById('result-2').innerText = 'Maturity Amount: ₹ ' + formatNumberWithCommas(maturityAmount.toFixed(2));
+        }
+    
+        function clearFields(calculatorType) {
+            switch (calculatorType) {
+                case 2:
+                    document.getElementById('principal-amount').value = '100000';
+                    document.getElementById('interest-rate-2').value = '10';
+                    document.getElementById('compounding-option').value = 'yearly';
+                    document.getElementById('loan-period-2').value = '12';
+                    document.getElementById('result-2').innerText = '';
+                    break;
+                default:
+                    console.log('Invalid calculator type.');
+                    break;
+            }
+        }
+    
+    </script>
+        <!-- Blog End -->
+
+
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Address</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
+                                    <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                                    <p><i class="fa fa-envelope"></i>info@example.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                         <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="index.html">Home</a>
+                                    <a href="about.html">About</a>
+                                    <a href="services.html">Services</a>
+                                    <a href="privacy.html">Privacy policy</a>
+                                    <a href="terms.html">Terms of use</a>
+                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="footer-newsletter">
+                            <h2>Newsletter</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet elit. Quisque eu lectus a leo dictum nec non quam. Tortor eu placerat rhoncus, lorem quam iaculis felis, sed lacus neque id eros.
+                            </p>
+                            <!-- <div class="form">
+                                <input class="form-control" placeholder="Email goes here">
+                                <button class="btn custom-btn">Submit</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; <a href="#">Deltateam</a>, All Right Reserved.</p>
+                    <p>Designed By <a href="https://deltateam.in/">Deltateam</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
